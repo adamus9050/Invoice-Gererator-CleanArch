@@ -5,7 +5,9 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using Domain.Entities.Identification;
-using Domain.Services;
+using Domain.Services.Interfaces;
+using Infrastructure.Services;
+using Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

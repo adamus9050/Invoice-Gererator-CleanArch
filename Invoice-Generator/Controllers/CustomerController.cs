@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
-using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Domain.Services.Interfaces;
 
 namespace Invoice_Generator.Controllers
 {
