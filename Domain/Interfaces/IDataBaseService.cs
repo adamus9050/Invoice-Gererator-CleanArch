@@ -1,10 +1,15 @@
-﻿using Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Domain.Entities;
 
-namespace Domain.Services.Interfaces
+namespace Domain.Interfaces
 {
     public interface IDataBaseService
     {
-        int Save(Customer customer);
+        Task Save(Customer customer);
         string SaveMaterials(Material material);
         IEnumerable<Customer> GetAll();
         IEnumerable<Material> GetAllMaterials();

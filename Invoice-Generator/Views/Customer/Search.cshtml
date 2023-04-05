@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Domain.Entities.Customer>
+﻿@using Domain.Entities;
+@model IEnumerable<Domain.Entities.Customer>
 @{
     ViewData["Title"] = "Search";
 }
@@ -13,7 +14,7 @@
 }
 
 <ul>     
-    @foreach (var customer in Model)
+    @foreach (Customer customer in Model)
     {
             <li>
             @customer.Name

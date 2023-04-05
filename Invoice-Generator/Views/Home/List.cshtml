@@ -9,13 +9,13 @@
 <h3>Lista materiałów</h3>
 @using (Html.BeginForm("SearchMaterials", "Home", FormMethod.Post))
 {
-  <input type="text" name="SearchString" />
-  <input type="submit" value="Filter" /> 
-
-  <h6>wpisz nazwe lub cene materiału</h6> 
+        <input type="text" name="searchMaterial" />
+    <input  class="btn btn-outline-primary" type="submit" value="Filtruj" /> 
+    <h6>wpisz nazwe lub cene materiału</h6> 
 }
+<br/>
 <div class="page-1">
-        @foreach (Material material in Model)
+        @foreach (var material in Model)
         {
             <table class="table">
               <thead>

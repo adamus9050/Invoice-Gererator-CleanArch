@@ -5,21 +5,15 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using Domain.Entities.Identification;
-using Domain.Services.Interfaces;
-using Infrastructure.Services;
 using Infrastructure.Persistence;
+using Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IDataBaseService, DataBaseService>();
-
-//builder.Services.AddDbContext<DbCustContext>(builder =>
-//{
-//    builder.UseSqlServer(@"Server=DESKTOP-CJQK5PA;Database=TwojaFaktura;trusted_connection=true;encrypt=false");
-//});
+builder.Services.AddScoped<IDataBaseService, InvoiceGeneratorRepository>();
 
 builder.Services.AddDbContext<DbCustContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("TwojaFaktura")));

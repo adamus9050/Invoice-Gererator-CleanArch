@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Domain.Entities.Customer>
+﻿@using Domain.Entities;
+@model IEnumerable<Domain.Entities.Customer>
 @{
     ViewData["Title"] = "CustomerList";
 }
@@ -10,13 +11,13 @@
 @using (Html.BeginForm("Search", "Customer", FormMethod.Post))
 {
     <h6>wpisz właściwość klienta</h6> 
-  <input type="text" name="SearchString" />
-      <input  class="btn btn-outline-primary" type="submit" value="Filter" /> 
+    <input type="text" name="SearchString" />
+    <input  class="btn btn-outline-primary" type="submit" value="Filtruj" /> 
 }
   <br/>
 <div class="pages-1">
-    <ul>
-        @foreach (var lst in Model)
+
+        @foreach (Customer lst in Model)
         {
 
                 <table class="table">
@@ -50,5 +51,5 @@
 
                 </table>
         }
-    </ul>
+
 </div>

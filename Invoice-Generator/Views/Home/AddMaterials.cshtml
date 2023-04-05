@@ -8,28 +8,24 @@
     @using (Html.BeginForm("SearchMaterials", "Home", FormMethod.Post))
     {
                     <input type="text" name="SearchString" />
-                    <input class="btn btn-outline-primary" type="submit" value="Filter" /> 
+                    <input class="btn btn-outline-primary" type="submit" value="Fitruj" /> 
 
-                        <h6>wpisz nazwe lub cene materiału</h6> 
+                        <h6>Wpisz nazwę lub cenę materiału</h6> 
     }
     <br/>
     @using (Html.BeginForm("AddMaterials", "Home", FormMethod.Post))
     {
         @Html.ValidationSummary()
-            <table>
-                <tr>
-                    <th>
-                        <span>Nazwa materiału:</span>@Html.TextBoxFor(x =>x.Name)
-                    </th>
-                    <th>
-                        <span>Opis(opcjonalnie):</span>@Html.TextBoxFor(x=>x.Description)
-                    </th>
-                    <th>
-                        <span>Cena:</span>@Html.TextBoxFor(x=>x.Price)
-                    </th>
-                </tr>
-            </table>
 
+                          <div class="col">
+                                        <input type="text" class="form-control" placeholder="Nazwa materiału" @Html.TextBoxFor(x =>x.Name)>
+                          </div>
+                          <div class="col">
+                                        <input type="text" class="form-control" placeholder="Opis (opcjonalnie)" @Html.TextBoxFor(x => x.Description)>
+                          </div>
+                          <div class="col">
+                                        <input type="text" class="form-control" placeholder="Cena" @Html.TextBoxFor(x => x.Price)>
+                          </div>
             <br/>
                 <button class="btn btn-primary" type="submit">Wyślij formularz</button>
     }

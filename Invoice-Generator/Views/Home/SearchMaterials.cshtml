@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<Domain.Entities.Material>
 @{
-    ViewData["Title"] = "Search";
+    ViewData["Title"] = "SearchMaterial";
 }
 
 <h1>Wyszukiwarka</h1>
-@using (Html.BeginForm("Search", "Customer", FormMethod.Post))
+@using (Html.BeginForm("SearchMaterial", "Home", FormMethod.Post))
 {
-       <input type="text" name="SearchString" />
+           <input type="text" name="searchMaterial" />
        <input type="submit" value="Filter" /> 
-
-       <h6>wpisz właściwość klienta</h6> 
 }
 
 <ul>     
@@ -19,8 +17,6 @@
             @material.Name
             @material.Description
             @material.Price
-
-            <a href="@Url.Action("DetailsCustomer","Customer", new {Id =material.Id})">Szczegóły</a>
           </li>
 
     }
