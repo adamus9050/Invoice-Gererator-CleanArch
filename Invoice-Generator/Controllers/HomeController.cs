@@ -7,14 +7,15 @@ namespace Invoice_Generator.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        ////private readonly ILogger<HomeController> _logger;
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-        private readonly IDataBaseService _dataBaseService;
-        public HomeController(IDataBaseService dataService)
+        ////public HomeController(ILogger<HomeController> logger)
+        ////{
+        ////    _logger = logger;
+        ////}
+
+        private readonly ICustomerRepository _dataBaseService;
+        public HomeController(ICustomerRepository dataService)
         {
             _dataBaseService = dataService;
         }
@@ -53,30 +54,30 @@ namespace Invoice_Generator.Controllers
             return RedirectToAction("AddMaterials");
         }
 
-        [HttpGet]
-        public IActionResult List()
-        {
-            var listMaterial = _dataBaseService.GetAllMaterials();
-            return View(listMaterial);
-        }
+        //[HttpGet]
+        //public IActionResult List()
+        //{
+        //    var listMaterial = _dataBaseService.GetAllMaterials();
+        //    return View(listMaterial);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteMaterials(int id)
-        {
-            _dataBaseService.DeleteMaterial(id);
-            ViewBag.Message = "Record Delete Succesfully";
-            return RedirectToAction("List");
-        }
-        public async Task<IActionResult> SearchMaterials(string searchMaterial)
-        {
-            if (_dataBaseService.Search == null)
-            {
-                return Problem("Material isn't at the database");
-            }
-            var material = await _dataBaseService.Search(searchMaterial);
-            return View(material);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteMaterials(int id)
+        //{
+        //    _dataBaseService.DeleteMaterial(id);
+        //    ViewBag.Message = "Record Delete Succesfully";
+        //    return RedirectToAction("List");
+        //}
+        //public async Task<IActionResult> SearchMaterials(string searchMaterial)
+        //{
+        //    if (_dataBaseService.Search == null)
+        //    {
+        //        return Problem("Material isn't at the database");
+        //    }
+        //    var material = await _dataBaseService.Search(searchMaterial);
+        //    return View(material);
+        //}
 
     }
 }

@@ -3,14 +3,15 @@ using System.Data;
 using Domain.Entities;
 using Domain.Interfaces;
 
+
 namespace Application.Services
 {
-    internal class DatabseService
+    internal class DataCustomerService : IDataCustomerService
     {
-        private readonly IDataBaseService _dataBaseService;
-        public DatabseService(IDataBaseService dataBaseService)
+        private readonly ICustomerRepository _dataBaseService;
+        public DataCustomerService(ICustomerRepository dataBaseService)
         {
-            _dataBaseService = dataBaseService;            
+            _dataBaseService = dataBaseService;
         }
         public async Task Save(Customer customer)
         {

@@ -6,17 +6,19 @@ using System.Data;
 using System.Data.SqlClient;
 using Domain.Entities.Identification;
 using Infrastructure.Persistence;
+using Infrastructure.Repositories;
+using Application.Services;
 using Domain.Interfaces;
+using Infrastructure.Extensions;
+using Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IDataBaseService, InvoiceGeneratorRepository>();
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInApplication();
 
-builder.Services.AddDbContext<DbCustContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("TwojaFaktura")));
 
 void ConfigureServices(IServiceCollection services)
 {
