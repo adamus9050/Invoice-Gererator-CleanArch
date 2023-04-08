@@ -30,27 +30,28 @@ namespace Invoice_Generator.Controllers
             TempData["CustomerId"] = customer.Id; // tu zapis. Wywołanie w widoku
             return RedirectToAction("Add");
         }
+        [HttpPost]
+        public IActionResult DeleteCustomers(int id)
+        {
+            _customerService.DeleteCustomers(id);
+            return RedirectToAction("CustomerList");
+        }
 
-        //[Route("CustomerList")]
-        //public IActionResult CustomerList(Customer customer)
-        //{
-        //    var lst = _customerService.GetAll();
-        //    return View(lst);
-        //}
+        [Route("CustomerList")]
+        public IActionResult CustomerList(Customer customer)
+        {
+            var lst = _customerService.GetAll();
+            return View(lst);
+        }
 
-        //[HttpGet]
-        //public IActionResult DetailsCustomer(int id)
-        //{
-        //    var detail = _customerService.Get(id);
-        //    return View(detail);
-        //}
+        [HttpGet]
+        public IActionResult DetailsCustomer(int id)
+        {
+            var detail = _customerService.GetAddress(id);
+            return View(detail);
+        }
 
-        //[HttpPost]
-        //public IActionResult DeleteCustomers(int id)
-        //{
-        //    _customerService.DeleteCustomers(id);
-        //    return RedirectToAction("CustomerList");
-        //}
+
         //public async Task<IActionResult> Search(string searchString)
         //{
         //    if (_customerService.Search == null)

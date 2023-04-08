@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    internal interface IHomeRepository
+    public interface IHomeRepository
     {
         Task SaveMaterials(Material material);
-        //IEnumerable<Material> GetAllMaterials();
-        //Material DeleteMaterial(int id);
+        Task DeleteMaterial(int id);
+        IEnumerable<Material> GetAllMaterials();
+
         //Task<List<Material>> SearchMaterial(string searchString);
     }
 }

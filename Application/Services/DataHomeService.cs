@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,25 @@ namespace Application.Services
 {
     internal class DataHomeService : IDataHomeService
     {
-        private readonly ICustomerRepository _dataBaseService;
-        public DataHomeService(ICustomerRepository dataBaseService)
+        private readonly IHomeRepository _dataBaseService;
+        public DataHomeService(IHomeRepository dataBaseService)
         {
             _dataBaseService = dataBaseService;
         }
 
+        public async Task SaveMaterials(Material material)
+        {
+            await _dataBaseService.SaveMaterials(material);
+        }
+        public async Task DeleteMaterial(int id)
+        {
+            await _dataBaseService.DeleteMaterial(id);
+        }
+
+        public IEnumerable<Material> GetAllMaterials()
+        {
+            _dataBaseService.GetAllMaterials();
+            return GetAllMaterials();
+        }
     }
 }

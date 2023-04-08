@@ -20,6 +20,7 @@ namespace Infrastructure.Extensions
             options.UseSqlServer(configuration.GetConnectionString("TwojaFaktura")));
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IHomeRepository, HomeRepository>();
         }
     }
 }

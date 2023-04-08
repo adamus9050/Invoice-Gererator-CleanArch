@@ -5,8 +5,9 @@ namespace Application.Services
     public interface IDataHomeService
     {
         Task SaveMaterials(Material material);
-        //IEnumerable<Material> GetAllMaterials();
-        //Material DeleteMaterial(int id);
+        Task DeleteMaterial(int id);
+        IEnumerable<Material> GetAllMaterials();
+
         //Task<List<Material>> SearchMaterial(string searchString);
 
     }

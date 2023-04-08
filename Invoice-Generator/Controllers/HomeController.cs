@@ -14,8 +14,8 @@ namespace Invoice_Generator.Controllers
         ////    _logger = logger;
         ////}
 
-        private readonly ICustomerRepository _dataBaseService;
-        public HomeController(ICustomerRepository dataService)
+        private readonly IHomeRepository _dataBaseService;
+        public HomeController(IHomeRepository dataService)
         {
             _dataBaseService = dataService;
         }
@@ -38,37 +38,33 @@ namespace Invoice_Generator.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMaterials(Material material)
         {
-            //if (!this.GetType().Equals(material.Name.GetType()))
-            //{
-            //    return View("Errors/ErrorM");
-            //}
-            //else 
-            //{
+
             if (!ModelState.IsValid)
             {
                 return View("AddMaterials");
             }
 
-            var mat = _dataBaseService.SaveMaterials(material);
-            TempData["Materials"] = mat;
+            await _dataBaseService.SaveMaterials(material);
+            TempData["Materials"] = material.Name;
             return RedirectToAction("AddMaterials");
         }
 
-        //[HttpGet]
-        //public IActionResult List()
-        //{
-        //    var listMaterial = _dataBaseService.GetAllMaterials();
-        //    return View(listMaterial);
-        //}
+        [HttpGet]
+        public IActionResult List()
+        {
+            var listMaterial = _dataBaseService.GetAllMaterials();
+            return View(listMaterial);
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteMaterials(int id)
-        //{
-        //    _dataBaseService.DeleteMaterial(id);
-        //    ViewBag.Message = "Record Delete Succesfully";
-        //    return RedirectToAction("List");
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteMaterials(int id)
+        {
+            _dataBaseService.DeleteMaterial(id);
+            ViewBag.Message = "Record Delete Succesfully";
+            return RedirectToAction("List");
+        }
+
         //public async Task<IActionResult> SearchMaterials(string searchMaterial)
         //{
         //    if (_dataBaseService.Search == null)

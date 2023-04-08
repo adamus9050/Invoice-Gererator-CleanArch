@@ -10,10 +10,10 @@ namespace Domain.Interfaces
     public interface ICustomerRepository
     {
         Task Save(Customer customer);
-        //IEnumerable<Customer> GetAll();
-        //Address Get(int id);
-        //Address DeleteCustomers(int id);
-        //Material DeleteMaterial(int id);
+        Address DeleteCustomers(int id);
+        IEnumerable<Customer> GetAll();
+        Address GetAddress(int id);
+
         //Task<List<Customer>> Search(string searchString);
         //Task<List<Material>> SearchMaterial(string searchString);
     }
