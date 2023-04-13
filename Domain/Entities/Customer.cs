@@ -17,9 +17,12 @@ namespace Domain.Entities
         [Required(ErrorMessage = "Nazwisko klienta jest polem obowiązkowym")]
         public string Surname { get; set; }
         [Required(ErrorMessage = "Numer telefonu klienta jest polem obowiązkowym")]
+        [StringLength(9,MinimumLength = 9)]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Nie dodano klasy Customer\\Adres")]
         public Address Address { get; set; }
+
+        //public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

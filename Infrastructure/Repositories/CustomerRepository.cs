@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,8 +48,10 @@ namespace Infrastructure.Repositories
 
         public IEnumerable<Customer> GetAll()
         {
+
             var klient = _context.Customers.ToList();
             return klient;
+  
         }
 
 

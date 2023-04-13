@@ -6,7 +6,7 @@ namespace Invoice_Generator.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly Application.Services.IDataCustomerService _customerService;
+        private readonly IDataCustomerService _customerService;
         public CustomerController(IDataCustomerService customerService)
         {
             _customerService = customerService;
@@ -27,7 +27,8 @@ namespace Invoice_Generator.Controllers
                 return View("Add");
             }
             await _customerService.Save(customer);
-            TempData["CustomerId"] = customer.Id; // tu zapis. Wywołanie w widoku
+            TempData["CustomerName"] = customer.Name; // tu zapis. Wywołanie w widoku
+            TempData["CustomerSurname"] = customer.Surname;
             return RedirectToAction("Add");
         }
         [HttpPost]

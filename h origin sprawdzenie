@@ -1,0 +1,35 @@
+[33mcommit 5276422831209a752abc553a37cc1a8da20b9c80[m[33m ([m[1;36mHEAD -> [m[1;32msprawdzenie[m[33m)[m
+Author: Adam Kazmierczyk 106214 <73425590+adamus9050@users.noreply.github.com>
+Date:   Sat Apr 8 16:21:59 2023 +0200
+
+    lista klientów nie działa
+
+[33mcommit 26dc04602ce1d4fa4eab7b0bbbccff70404f1528[m[33m ([m[1;31morigin/sprawdzenie[m[33m)[m
+Author: Adam Kazmierczyk 106214 <73425590+adamus9050@users.noreply.github.com>
+Date:   Sat Apr 8 14:15:54 2023 +0200
+
+    upożądkowanie clean code
+
+[33mcommit 15ed422c72b82e78031369479b4a9bc9dcbcdba7[m
+Author: Adam Kazmierczyk 106214 <73425590+adamus9050@users.noreply.github.com>
+Date:   Wed Apr 5 19:28:29 2023 +0200
+
+    wywpłanie interfejsu w warstwie aplikacji. W trakcie
+
+[33mcommit 9d505baee6fcc9869adbf1a1a058ad03fe7a4734[m
+Author: Adam Kazmierczyk 106214 <73425590+adamus9050@users.noreply.github.com>
+Date:   Tue Apr 4 20:20:09 2023 +0200
+
+    delete faults
+
+[33mcommit cc6646b9330f19d0b54e94bf7ee55588f5740b7a[m
+Author: Adam Kazmierczyk 106214 <73425590+adamus9050@users.noreply.github.com>
+Date:   Tue Apr 4 20:15:51 2023 +0200
+
+    działanie poprawne
+
+[33mcommit 1991df1f2c7ecc6d83f531f402c9bb5ecf8e0642[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Adam Kazmierczyk 106214 <73425590+adamus9050@users.noreply.github.com>
+Date:   Tue Apr 4 19:50:52 2023 +0200
+
+    Pierwsze dodanie
