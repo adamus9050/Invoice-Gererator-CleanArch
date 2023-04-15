@@ -38,6 +38,7 @@ namespace Invoice_Generator.Controllers
             return RedirectToAction("CustomerList");
         }
 
+        [HttpGet]
         [Route("CustomerList")]
         public IActionResult CustomerList(Customer customer)
         {

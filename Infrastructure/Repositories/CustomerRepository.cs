@@ -41,7 +41,6 @@ namespace Infrastructure.Repositories
 
         public Address GetAddress(int id)
         {
-
             var address = _context.Addresses.Find(id);
             return address;
         }

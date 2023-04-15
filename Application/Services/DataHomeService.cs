@@ -27,8 +27,8 @@ namespace Application.Services
 
         public IEnumerable<Material> GetAllMaterials()
         {
-            _dataBaseService.GetAllMaterials();
-            return GetAllMaterials();
+           IEnumerable<Material> materials= _dataBaseService.GetAllMaterials();
+            return materials;
         }
     }
 }
