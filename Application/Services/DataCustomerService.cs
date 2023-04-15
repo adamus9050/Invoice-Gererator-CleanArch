@@ -26,8 +26,8 @@ namespace Application.Services
 
         public IEnumerable<Customer> GetAll()
         {
-            _dataBaseService.GetAll();
-            return GetAll();
+            IEnumerable<Customer> customers=_dataBaseService.GetAll();
+            return customers;
         }
 
         public Address GetAddress(int id)
