@@ -11,10 +11,10 @@ namespace Domain.Interfaces
     {
         Task Save(Customer customer);
         Address DeleteCustomers(int id);
-        IEnumerable<Customer> GetAll();
+        Task<IEnumerable<Customer>> GetAll();
         Address GetAddress(int id);
 
-        //Task<List<Customer>> Search(string searchString);
+        Task<List<Customer>> Search(string searchString);
         //Task<List<Material>> SearchMaterial(string searchString);
     }
 }

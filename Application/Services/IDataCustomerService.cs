@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Dto;
+using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -6,9 +7,10 @@ namespace Application.Services
 {
     public interface IDataCustomerService
     {
-        Task Save(Customer customer);
+        Task Save(CustomerDto customer);
         Address DeleteCustomers(int id);
-        IEnumerable<Customer> GetAll();
+        Task<IEnumerable<CustomerDto>> GetAll();
         Address GetAddress(int id);
+        Task<List<Customer>> Search(string searchString);
     }
 }

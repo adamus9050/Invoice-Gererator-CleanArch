@@ -1,5 +1,5 @@
-﻿@using Domain.Entities;
-@model IEnumerable<Domain.Entities.Customer>
+﻿@using Application.Dto;
+@model IEnumerable<CustomerDto>
 @{
     ViewData["Title"] = "CustomerList";
 }
@@ -17,13 +17,13 @@
   <br/>
 <div class="pages-1">
 
-        @foreach (Customer lst in Model)
+        @foreach (var lst in Model)
         {
 
                 <table class="table">
                   <thead>
                     <tr>
-                      <th scope="col">Id</th>
+                      @*<th scope="col">Id</th>*@
                       <th scope="col">Name</th>
                       <th scope="col">Surname</th>
                       <th scope="col">PhoneNumber</th>
@@ -33,15 +33,15 @@
 
                   <tbody>
                     <tr>
-                      <th scope="row">@lst.Id</th>
+                     @* <th scope="row">@lst.Id</th>*@
                       <td>@lst.Name</td>
                       <td>@lst.Surname</td>
                       <td>@lst.PhoneNumber</td>
-                      <td><a href="@Url.Action("DetailsCustomer","Customer", new {Id =lst.Id})">Szczegóły</a></td>
+                      <td><a href="@Url.Action("DetailsCustomer","Customer", new {Id =@lst.Name})">Szczegóły</a></td>
                       <td>
                             @using (Html.BeginForm("DeleteCustomers", "Customer", FormMethod.Post))
                             {
-                               <input type="hidden" name="id" value="@lst.Id"/>
+                               <input type="hidden" name="id" @*value="@lst.item.PrimaryKey"*@/>
                                <button class="btn btn-danger" type="submit">Usuń</button>
                             }
                       </td>

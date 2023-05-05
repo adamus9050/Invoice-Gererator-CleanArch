@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap" rel="stylesheet">
 
 <h3>Lista materiałów</h3>
-@using (Html.BeginForm("SearchMaterials", "Home", FormMethod.Post))
+@using (Html.BeginForm("SearchMaterials", "Home", FormMethod.Get)) //FormMethodPost.Post
 {
         <input type="text" name="searchMaterial" />
     <input  class="btn btn-outline-primary" type="submit" value="Filtruj" /> 

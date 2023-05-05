@@ -1,4 +1,4 @@
-﻿@model Domain.Entities.Customer
+﻿@model Application.Dto.CustomerDto
 @{
     ViewData["Title"] = "Add";
 }
@@ -14,31 +14,38 @@
 <div class="row g-3">
     @using (Html.BeginForm("Add", "Customer", FormMethod.Post))
     {
-        @Html.ValidationSummary()
+        @*@Html.ValidationSummary()*@
 
                       <div class="col">
                                 <input type="text" class="form-control" placeholder="Imię klienta" @Html.TextBoxFor(x =>x.Name)>
+                                <span asp-validation-for="Name" class="text-danger"></span>
                       </div>
                       <div class="col">
                                     <input type="text" class="form-control" placeholder="Nazwisko" @Html.TextBoxFor(x => x.Surname)>
+                                        <span asp-validation-for="Surname" class="text-danger"></span>
                       </div>
                       <div class="col">
                                     <input type="text" class="form-control" placeholder="Numer telefonu" @Html.TextBoxFor(x => x.PhoneNumber)>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                       </div>
                       <p>Adres:</p>
                       <div class="col">
                           
-                                     <input type="text" class="form-control" placeholder="Ulica" @Html.TextBoxFor(x => x.Address.Street)>
+                                     <input type="text" class="form-control" placeholder="Ulica" @Html.TextBoxFor(x => x.Street)>
+                                         <span asp-validation-for="Street" class="text-danger"></span>
                       </div>
                     
                       <div class="col">
-                                     <input type="text" class="form-control" placeholder="Numer ulicy" @Html.TextBoxFor(x => x.Address.NumberOf)>
+                                     <input type="text" class="form-control" placeholder="Numer ulicy" @Html.TextBoxFor(x => x.NumberOf)>
+                                         <span asp-validation-for="NumberOf" class="text-danger"></span>
                       </div>
                       <div class="col">
-                                     <input type="text" class="form-control" placeholder="Miasto" @Html.TextBoxFor(x => x.Address.City)>
+                                     <input type="text" class="form-control" placeholder="Miasto" @Html.TextBoxFor(x => x.City)>
+                                         <span asp-validation-for="City" class="text-danger"></span>
                       </div>
                       <div class="col">
-                                      <input type="text" class="form-control" placeholder="Kod pocztowy" @Html.TextBoxFor(x => x.Address.PostCode)>
+                                      <input type="text" class="form-control" placeholder="Kod pocztowy" @Html.TextBoxFor(x => x.PostCode)>
+                                          <span asp-validation-for="PostCode" class="text-danger"></span>
                       </div>
                     <br/>
                     <button class="btn btn-primary" type="submit"> Wyślij formularz</button> 
@@ -46,6 +53,7 @@
     }
     <br/>
     <p>Zapisane imię klienta:</p><strong>@TempData["CustomerName"]</strong>
-    <p>Zapisane nazwisko klienta:</p><strong>@TempData["CusomerSurname"]</strong>
+    <p>Zapisane nazwisko klienta:</p><strong>@TempData["CustomerSurname"]</strong>
+
 </div>
 

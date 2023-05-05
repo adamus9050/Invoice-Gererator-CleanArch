@@ -15,19 +15,26 @@
     <br/>
     @using (Html.BeginForm("AddMaterials", "Home", FormMethod.Post))
     {
-        @Html.ValidationSummary()
+        @*@Html.ValidationSummary()*@
 
                           <div class="col">
                                         <input type="text" class="form-control" placeholder="Nazwa materiału" @Html.TextBoxFor(x =>x.Name)>
+                                        <span asp-validation-for="Name" class="text-danger"></span>
                           </div>
                           <div class="col">
                                         <input type="text" class="form-control" placeholder="Opis (opcjonalnie)" @Html.TextBoxFor(x => x.Description)>
                           </div>
                           <div class="col">
                                         <input type="text" class="form-control" placeholder="Cena" @Html.TextBoxFor(x => x.Price)>
+                                        <span asp-validation-for="Price" class="text-danger"></span>
                           </div>
             <br/>
                 <button class="btn btn-primary" type="submit">Wyślij formularz</button>
     }
         <p>Zapisane id materiału:</p><strong>@TempData["Materials"]</strong> 
 </div>
+@section Scripts {
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

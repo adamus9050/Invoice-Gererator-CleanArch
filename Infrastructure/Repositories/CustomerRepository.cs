@@ -41,31 +41,28 @@ namespace Infrastructure.Repositories
 
         public Address GetAddress(int id)
         {
-
             var address = _context.Addresses.Find(id);
             return address;
         }
 
-        public IEnumerable<Customer> GetAll()
+        public async Task<IEnumerable<Customer>> GetAll()
         {
 
-            var klient = _context.Customers.ToList();
+            var klient = await _context.Customers.ToListAsync();
             return klient;
   
         }
 
+        public async Task<List<Customer>> Search(string searchString)
+        {
+            var customer = from m in _context.Customers
+                           select m;
 
+            customer = customer.Where(x => x.Name!.Contains(searchString) || x.Surname!.Contains(searchString) || x.PhoneNumber!.Contains(searchString));
 
-        //    public async Task<List<Customer>> Search(string searchString)
-        //    {
-        //        var customer = from m in _context.Customers
-        //                       select m;
-
-        //        customer = customer.Where(x => x.Name!.Contains(searchString) || x.Surname!.Contains(searchString) || x.PhoneNumber!.Contains(searchString));
-
-        //        var zmienna = await customer.ToListAsync();
-        //        return zmienna;
-        //    }
+            var zmienna = await customer.ToListAsync();
+            return zmienna;
+        }
 
     }
 }

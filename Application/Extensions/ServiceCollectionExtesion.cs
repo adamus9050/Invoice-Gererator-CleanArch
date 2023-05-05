@@ -6,6 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Services;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Domain.Entities;
+using Application.Mapping;
 
 namespace Application.Extensions
 {
@@ -15,7 +19,18 @@ namespace Application.Extensions
         {
             services.AddScoped<IDataCustomerService, DataCustomerService>();
             services.AddScoped<IDataHomeService, DataHomeService>();
+           
+            //Mapowanie Dto
+            services.AddAutoMapper(typeof(CustomerMappingProfile));
 
+            //Dodawanie walidacji (fluent validation)
+            services.AddValidatorsFromAssemblyContaining<CustomerDtoValidator>()
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+
+            services.AddValidatorsFromAssemblyContaining<AddressValidator>()
+                    .AddFluentValidationAutoValidation()
+                    .AddFluentValidationClientsideAdapters();
         }
     }
 }

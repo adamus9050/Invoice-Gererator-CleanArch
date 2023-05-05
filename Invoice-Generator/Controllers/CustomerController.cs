@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Domain.Entities;
+using Application.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Invoice_Generator.Controllers
@@ -20,7 +21,7 @@ namespace Invoice_Generator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Customer customer)
+        public async Task<IActionResult> Add(CustomerDto customer)
         {
             if (!ModelState.IsValid)
             {
@@ -38,10 +39,11 @@ namespace Invoice_Generator.Controllers
             return RedirectToAction("CustomerList");
         }
 
+        [HttpGet]
         [Route("CustomerList")]
-        public IActionResult CustomerList(Customer customer)
+        public async Task<IActionResult> CustomerList(CustomerDto customer)
         {
-            var lst = _customerService.GetAll();
+            var lst = await _customerService.GetAll();
             return View(lst);
         }
 
@@ -53,16 +55,20 @@ namespace Invoice_Generator.Controllers
         }
 
 
-        //public async Task<IActionResult> Search(string searchString)
-        //{
-        //    if (_customerService.Search == null)
-        //    {
-        //        return Problem("Customer isn't at the database");
-        //    }
-        //    var customer = await _customerService.Search(searchString);
+        public async Task<IActionResult> Search(string searchString)
+        {
+            if(searchString==null)
+            {
+                return Problem("Pole szukaj jest puste");
+            }
+            else if (_customerService.Search == null)
+            {
+                return Problem("Customer isn't at the database");
+            }
+            var customer = await _customerService.Search(searchString);
 
-        //    return View(customer);
-        //}
+            return View(customer);
+        }
     }
 }
 
