@@ -1,0 +1,31 @@
+﻿//using Application.Services;
+using Domain.Interfaces;
+using AutoMapper;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.Dto.Customer.CustomerQueries.List
+{
+    public class GetAllCustomerHandler : IRequestHandler<GetAllCustomer, IEnumerable<CustomerDto>>
+    {
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IMapper _mapper;
+
+        public GetAllCustomerHandler(ICustomerRepository customerService, IMapper mapper)
+        {
+            _customerRepository = customerService;
+            _mapper = mapper;
+        }
+        public async Task<IEnumerable<CustomerDto>> Handle(GetAllCustomer request, CancellationToken cancellationToken)
+        {
+            var customers = await _customerRepository.GetAll();
+            var customerdto = _mapper.Map<IEnumerable<CustomerDto>>(customers);
+
+            return customerdto;
+        }
+    }
+}

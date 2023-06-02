@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories
 
             if ( _dbCustContext.SaveChanges() > 0)
             {
-                Console.WriteLine("Udało się dodać matrial");
+                Console.WriteLine("Udało się dodać material");
             }
             var idmaterial = $"l.p{material.Id} Nazwa: {material.Name} Cena: {material.Price}";
             // return idmaterial;
@@ -47,16 +47,16 @@ namespace Infrastructure.Repositories
             return materials;
         }
 
-        //    public async Task<List<Material>> SearchMaterial(string searchString)
-        //    {
-        //        var material = from m in _context.Materials
-        //                       select m;
+        public async Task<List<Material>> SearchMaterial(string searchString)
+        {
+            var material = from m in _dbCustContext.Materials
+                           select m;
 
-        //        material = material.Where(x => x.Name!.Contains(searchString) || x.Price!.ToString().Contains(searchString));
+            material = material.Where(x => x.Name!.Contains(searchString) || x.Price!.ToString().Contains(searchString));
 
-        //        var zmienna1 = await material.ToListAsync();
-        //        return zmienna1;
-        //    }
+            var zmienna1 = await material.ToListAsync();
+            return zmienna1;
+        }
 
 
     }

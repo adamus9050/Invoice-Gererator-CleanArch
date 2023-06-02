@@ -12,11 +12,9 @@ namespace Domain.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string PhoneNumber { get; set; }
-        public Address Address { get; set; }
-
-        //public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string Name { get; set; } = default!;
+        public string Surname { get; set; } = default!;
+        public string PhoneNumber { get; set; } = default!;
+        public Address Address { get; set; }= default!;
     }
 }

@@ -1,15 +1,14 @@
 ﻿using Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Application.Services;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Domain.Entities;
 using Application.Mapping;
+using MediatR;
+using Application.Dto.Customer.Command.CustomerCommandAdd;
+using Application.Dto.Material.MaterialCommand.Add;
+
 
 namespace Application.Extensions
 {
@@ -17,20 +16,30 @@ namespace Application.Extensions
     {
         public static void AddInApplication(this IServiceCollection services)
         {
-            services.AddScoped<IDataCustomerService, DataCustomerService>();
-            services.AddScoped<IDataHomeService, DataHomeService>();
-           
+            services.AddMediatR(cfg => {
+                cfg.RegisterServicesFromAssemblyContaining(typeof(CustomerSaveCommand));
+                
+            });
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssemblyContaining(typeof(MaterialSaveCommand));
+            });
             //Mapowanie Dto
             services.AddAutoMapper(typeof(CustomerMappingProfile));
+            services.AddAutoMapper(typeof(MaterialMappingProfile));
 
             //Dodawanie walidacji (fluent validation)
-            services.AddValidatorsFromAssemblyContaining<CustomerDtoValidator>()
+            services.AddValidatorsFromAssemblyContaining<CustomerSaveCommandValidator>()
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+
+            services.AddValidatorsFromAssemblyContaining<MaterialSaveCommandValidator>()
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
             services.AddValidatorsFromAssemblyContaining<AddressValidator>()
-                    .AddFluentValidationAutoValidation()
-                    .AddFluentValidationClientsideAdapters();
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
         }
     }
 }

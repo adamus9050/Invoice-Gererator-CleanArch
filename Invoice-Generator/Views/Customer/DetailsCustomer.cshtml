@@ -1,14 +1,42 @@
-﻿@model Application.Dto.CustomerDto
+﻿@using Application.Dto;
+@model Application.Dto.CustomerDto;
 @{
     ViewData["Title"] = "DetailsCustomer";
 }
 
 <h1>Szczegoły klienta</h1>
 
-<p>@Model.Street</p>
-<p>@Model.NumberOf</p>
-<p>@Model.PostCode</p>
-<p>@Model.City</p>
+
+ <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Street</th>
+                  <th scope="col">NumberOfStreet</th>
+                  <th scope="col">PostalCode</th>
+                  <th scope="col">City</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <th scope="row">@Model.Street</th>
+                  <td>@Model.NumberOf</td>
+                  <td>@Model.PostCode</td>
+                  <td>@Model.City</td>
+
+                  @*<td>*@
+@*                @using (Html.BeginForm("DeleteMaterials", "Home", FormMethod.Post))
+                {
+                                <input type="hidden" name="id" value="@material.Id"/>
+                                <button class="btn btn-danger" type="submit">Usuń</button>
+                }*@
+                  @*</td>*@
+
+                  </tr> 
+
+              </tbody>
+
+            </table>
 <a href=@Url.ActionLink("CustomerList", "Customer")>Wróć</a>
 
 

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,28 +9,20 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    internal class DataHomeService : IDataHomeService
+    public class DataHomeService : IDataHomeService
     {
         private readonly IHomeRepository _dataBaseService;
-        public DataHomeService(IHomeRepository dataBaseService)
+        private readonly IMapper _mapper;
+        public DataHomeService(IHomeRepository dataBaseService, IMapper mapper)
         {
             _dataBaseService = dataBaseService;
+            _mapper = mapper;
         }
 
-        public async Task SaveMaterials(Material material)
+        public Task<List<Material>> SearchMaterial(string searchString)
         {
-            await _dataBaseService.SaveMaterials(material);
-        }
-        public async Task DeleteMaterial(int id)
-        {
-            await _dataBaseService.DeleteMaterial(id);
-        }
-
-        public IEnumerable<Material> GetAllMaterials()
-        {
-           IEnumerable<Material> materials= _dataBaseService.GetAllMaterials();
-
-            return materials;
+            var searchmaterial = _dataBaseService.SearchMaterial(searchString);
+            return searchmaterial;
         }
     }
 }

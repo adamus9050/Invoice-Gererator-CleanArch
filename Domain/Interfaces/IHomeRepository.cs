@@ -13,6 +13,6 @@ namespace Domain.Interfaces
         Task DeleteMaterial(int id);
         IEnumerable<Material> GetAllMaterials();
 
-        //Task<List<Material>> SearchMaterial(string searchString);
+        Task<List<Material>> SearchMaterial(string searchString);
     }
 }

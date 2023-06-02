@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dto.Commands.CreateCustomer
+namespace Application.Dto.Customer.CustomerQueries.List
 {
-    public class CustomerCommand : CustomerDto, IRequest<Unit>
+    public class GetAllCustomer : IRequest<IEnumerable<CustomerDto>>
     {
 
     }

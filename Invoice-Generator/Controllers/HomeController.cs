@@ -2,6 +2,10 @@
 using System.Diagnostics;
 using Domain.Entities;
 using Domain.Interfaces;
+using AutoMapper;
+using MediatR;
+using Application.Dto.Material.MaterialCommand.Add;
+
 
 namespace Invoice_Generator.Controllers
 {
@@ -14,11 +18,12 @@ namespace Invoice_Generator.Controllers
         ////    _logger = logger;
         ////}
 
-        private readonly IHomeRepository _dataBaseService;
-        public HomeController(IHomeRepository dataService)
+        private readonly IMediator _mediator;
+        public HomeController(IMediator mediator)
         {
-            _dataBaseService = dataService;
+            _mediator = mediator;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -34,9 +39,10 @@ namespace Invoice_Generator.Controllers
         {
             return View();
         }
+
         //Add materials to database
         [HttpPost]
-        public async Task<IActionResult> AddMaterials(Material material)
+        public async Task<IActionResult> AddMaterials(MaterialSaveCommand material)
         {
 
             if (!ModelState.IsValid)
@@ -44,26 +50,26 @@ namespace Invoice_Generator.Controllers
                 return View("AddMaterials");
             }
 
-            await _dataBaseService.SaveMaterials(material);
+            await _mediator.Send(material);
             TempData["Materials"] = material.Name;
             return RedirectToAction("AddMaterials");
         }
 
-        [HttpGet]
-        public IActionResult List()
-        {
-            var listMaterial = _dataBaseService.GetAllMaterials();
-            return View(listMaterial);
-        }
+        //[HttpGet]
+        //public IActionResult List()
+        //{
+        //    var listMaterial = _dataBaseService.GetAllMaterials();
+        //    return View(listMaterial);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteMaterials(int id)
-        {
-            _dataBaseService.DeleteMaterial(id);
-            ViewBag.Message = "Record Delete Succesfully";
-            return RedirectToAction("List");
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteMaterials(int id)
+        //{
+        //    _dataBaseService.DeleteMaterial(id);
+        //    ViewBag.Message = "Record Delete Succesfully";
+        //    return RedirectToAction("List");
+        //}
 
         //public async Task<IActionResult> SearchMaterials(string searchMaterial)
         //{

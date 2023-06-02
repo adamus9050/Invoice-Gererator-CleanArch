@@ -1,16 +1,20 @@
-﻿using Application.Services;
-using Domain.Entities;
-using Application.Dto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using Application.Dto.Customer.CustomerQueries.List;
+using Application.Dto.Customer.CustomerQueries.Details;
+//using Application.Dto.Customer.Command.CustomerCommandDelete;
+using Application.Dto.Customer.Command.CustomerCommandAdd;
+using CustomerCommandDelete;
 
 namespace Invoice_Generator.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly IDataCustomerService _customerService;
-        public CustomerController(IDataCustomerService customerService)
+        //private readonly IDataCustomerService _customerService;
+        private readonly IMediator _mediator;
+        public CustomerController(IMediator mediator)
         {
-            _customerService = customerService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -21,54 +25,63 @@ namespace Invoice_Generator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CustomerDto customer)
+        public async Task<IActionResult> Add(CustomerSaveCommand createCustomer)//CustomerDto customer)
         {
             if (!ModelState.IsValid)
             {
                 return View("Add");
             }
-            await _customerService.Save(customer);
-            TempData["CustomerName"] = customer.Name; // tu zapis. Wywołanie w widoku
-            TempData["CustomerSurname"] = customer.Surname;
+            await _mediator.Send(createCustomer);
+            TempData["CustomerName"] = createCustomer.Name;
+            TempData["CustomerSurname"] = createCustomer.Surname;
             return RedirectToAction("Add");
         }
+
         [HttpPost]
-        public IActionResult DeleteCustomers(int id)
+        public async Task<IActionResult> DeleteCustomers(int id)
         {
-            _customerService.DeleteCustomers(id);
-            return RedirectToAction("CustomerList");
+            try
+            {
+                var result = await _mediator.Send(new CustomerDeleteCommand(id));
+                return RedirectToAction("CustomerList");
+            }
+            catch(Exception ex) 
+            {
+                return Problem(ex.Message);
+            }
+            
         }
 
         [HttpGet]
         [Route("CustomerList")]
-        public async Task<IActionResult> CustomerList(CustomerDto customer)
+        public async Task<IActionResult> CustomerList()//CustomerDto customer)
         {
-            var lst = await _customerService.GetAll();
+            var lst = await _mediator.Send(new GetAllCustomer());
             return View(lst);
         }
 
         [HttpGet]
-        public IActionResult DetailsCustomer(int id)
+        public async Task<IActionResult> DetailsCustomer(int id)
         {
-            var detail = _customerService.GetAddress(id);
+            var detail = await _mediator.Send(new DetailssCustomer(id+1));
             return View(detail);
         }
 
 
-        public async Task<IActionResult> Search(string searchString)
-        {
-            if(searchString==null)
-            {
-                return Problem("Pole szukaj jest puste");
-            }
-            else if (_customerService.Search == null)
-            {
-                return Problem("Customer isn't at the database");
-            }
-            var customer = await _customerService.Search(searchString);
+        //public async Task<IActionResult> Search(string searchString)
+        //{
+        //    if (searchString == null)
+        //    {
+        //        return Problem("Pole szukaj jest puste");
+        //    }
+        //    else if (_customerService.Search == null)
+        //    {
+        //        return Problem("Customer isn't at the database");
+        //    }
+        //    var customer = await _customerService.Search(searchString);
 
-            return View(customer);
-        }
+        //    return View(customer);
+        //}
     }
 }
 

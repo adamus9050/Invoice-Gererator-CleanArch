@@ -31,18 +31,23 @@ namespace Infrastructure.Repositories
            // return customer.Id;
         }
 
-        public Address DeleteCustomers(int id)
+        public async Task<Customer> DeleteCustomers(int id)
         {
-            Address idDel = _context.Addresses.Find(id);
-            _context.Addresses.Remove(idDel);
+            Customer idDel = await _context.Customers.FindAsync(id);
+            _context.Customers.Remove(idDel);
             _context.SaveChanges();
-            return idDel;
+            return idDel; 
         }
 
-        public Address GetAddress(int id)
+        public async Task<Address> GetAddress(int id)
         {
-            var address = _context.Addresses.Find(id);
+            var address = await _context.Addresses.FindAsync(id);
             return address;
+
+            //var address = await _context.Addresses.FirstAsync(c => c.AddressId == id+1);
+            //return address;
+
+
         }
 
         public async Task<IEnumerable<Customer>> GetAll()

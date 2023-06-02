@@ -1,11 +1,6 @@
 ﻿using Application.Dto;
 using AutoMapper;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Mapping
 {
@@ -21,15 +16,19 @@ namespace Application.Mapping
                     PostCode = src.PostCode,
                     City = src.City,
 
-                }));
+                }));           
 
             CreateMap<Customer, CustomerDto>()
                 .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.Address.Street))
                 .ForMember(dto => dto.NumberOf, opt => opt.MapFrom(src => src.Address.NumberOf))
                 .ForMember(dto => dto.PostCode, opt => opt.MapFrom(src => src.Address.PostCode))
                 .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.Address.City));
-
-                
+            
+            CreateMap<Address, CustomerDto>()
+                .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.Street))
+                .ForMember(dto => dto.NumberOf, opt => opt.MapFrom(src => src.NumberOf))
+                .ForMember(dto => dto.PostCode, opt => opt.MapFrom(src => src.PostCode))
+                .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.City));
                 
         }
     }

@@ -23,7 +23,7 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      @*<th scope="col">Id</th>*@
+                      <th scope="col">Id</th>
                       <th scope="col">Name</th>
                       <th scope="col">Surname</th>
                       <th scope="col">PhoneNumber</th>
@@ -33,15 +33,15 @@
 
                   <tbody>
                     <tr>
-                     @* <th scope="row">@lst.Id</th>*@
+                      <th scope="row">@lst.Id</th>
                       <td>@lst.Name</td>
                       <td>@lst.Surname</td>
                       <td>@lst.PhoneNumber</td>
-                      <td><a href="@Url.Action("DetailsCustomer","Customer", new {Id =@lst.Name})">Szczegóły</a></td>
+                      <td><a href="@Url.Action("DetailsCustomer","Customer", new {Id =@lst.Id})">Szczegóły</a></td>
                       <td>
                             @using (Html.BeginForm("DeleteCustomers", "Customer", FormMethod.Post))
                             {
-                               <input type="hidden" name="id" @*value="@lst.item.PrimaryKey"*@/>
+                               <input type="hidden" name="Id" value="@lst.Id"/>
                                <button class="btn btn-danger" type="submit">Usuń</button>
                             }
                       </td>

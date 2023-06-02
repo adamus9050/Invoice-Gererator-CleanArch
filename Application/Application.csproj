@@ -21,4 +21,9 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dto\Material\MaterialCommand\Delete\" />
+    <Folder Include="Dto\Material\MaterialQuerries\List\" />
+  </ItemGroup>
+
 </Project>
