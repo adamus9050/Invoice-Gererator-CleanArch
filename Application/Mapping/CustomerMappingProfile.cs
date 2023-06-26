@@ -1,4 +1,5 @@
 ﻿using Application.Dto;
+using Application.Dto.Customer.Command.Edit;
 using AutoMapper;
 using Domain.Entities;
 
@@ -8,28 +9,34 @@ namespace Application.Mapping
     {
         public CustomerMappingProfile()
         {
-            CreateMap<CustomerDto, Customer>()
-                .ForMember(e => e.Address, opt => opt.MapFrom(src => new Address()
+            CreateMap<CustomerDto, Address>()
+                .ForMember(e => e.CurrentCustomer, opt => opt.MapFrom(src => new Customer()
                 {
-                    Street = src.Street,
-                    NumberOf = src.NumberOf,
-                    PostCode = src.PostCode,
-                    City = src.City,
+                    CustomerId=src.Id,
+                    Name = src.Name,
+                    Surname = src.Surname,
+                    PhoneNumber = src.PhoneNumber,
+                    EmailAdress = src.EmailAdres,
 
-                }));           
+                }));
+            
+
+            CreateMap<Address, CustomerDto>()       
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(src => src.CurrentCustomer.CustomerId))
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.CurrentCustomer.Name))
+                .ForMember(dto => dto.Surname, opt => opt.MapFrom(src => src.CurrentCustomer.Surname))
+                .ForMember(dto => dto.PhoneNumber, opt => opt.MapFrom(src => src.CurrentCustomer.PhoneNumber))
+                .ForMember(dto => dto.EmailAdres, opt => opt.MapFrom(src => src.CurrentCustomer.EmailAdress));
 
             CreateMap<Customer, CustomerDto>()
-                .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.Address.Street))
-                .ForMember(dto => dto.NumberOf, opt => opt.MapFrom(src => src.Address.NumberOf))
-                .ForMember(dto => dto.PostCode, opt => opt.MapFrom(src => src.Address.PostCode))
-                .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.Address.City));
-            
-            CreateMap<Address, CustomerDto>()
-                .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.Street))
-                .ForMember(dto => dto.NumberOf, opt => opt.MapFrom(src => src.NumberOf))
-                .ForMember(dto => dto.PostCode, opt => opt.MapFrom(src => src.PostCode))
-                .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.City));
-                
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(src => src.CustomerId))
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dto => dto.Surname, opt => opt.MapFrom(src => src.Surname))
+                .ForMember(dto => dto.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(dto => dto.EmailAdres, opt => opt.MapFrom(src => src.EmailAdress));
+
+
+            CreateMap<CustomerDto, EditCustomerCommand>();
         }
     }
 }

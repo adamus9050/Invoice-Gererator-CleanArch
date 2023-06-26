@@ -45,6 +45,14 @@
                                <button class="btn btn-danger" type="submit">Usuń</button>
                             }
                       </td>
+                      <td>
+                        @using (Html.BeginForm("Edit", "Customer", FormMethod.Get))
+                        {
+                           <input type="hidden" name="Id" value="@lst.Id" />
+                           <button class="btn btn-danger" type="submit">Edytuj</button>
+                        }
+                        @*<a class="btn btn-danger" asp-controller="Customer" asp-action="Edit" asp-route="@lst.Id"</a>;*@
+                      </td>
                       </tr> 
 
                   </tbody>

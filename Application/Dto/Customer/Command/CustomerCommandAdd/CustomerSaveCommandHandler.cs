@@ -18,7 +18,7 @@ namespace Application.Dto.Customer.Command.CustomerCommandAdd
 
         public async Task<Unit> Handle(CustomerSaveCommand request, CancellationToken cancellationToken)
         {
-            var customer = _mapper.Map<Domain.Entities.Customer>(request);
+            var customer = _mapper.Map<Domain.Entities.Address>(request);
             await _customerRepository.Save(customer);
 
             return Unit.Value;

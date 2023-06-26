@@ -1,27 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Domain.Entities;
-using Domain.Interfaces;
-using AutoMapper;
 using MediatR;
 using Application.Dto.Material.MaterialCommand.Add;
-
+using Application.Dto.Material.MaterialQuerries.List;
+using MaterialCommand.Delete;
+using MaterialQuerries.Search;
+using Application.Dto.Material.MaterialQuerries.Get;
+using Application.Dto.Material.MaterialCommand.Edit;
+using Application.Dto.Customer.Command.Edit;
+using AutoMapper;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace Invoice_Generator.Controllers
 {
     public class HomeController : Controller
     {
-        ////private readonly ILogger<HomeController> _logger;
-
-        ////public HomeController(ILogger<HomeController> logger)
-        ////{
-        ////    _logger = logger;
-        ////}
 
         private readonly IMediator _mediator;
-        public HomeController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public HomeController(IMediator mediator,IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -49,37 +48,85 @@ namespace Invoice_Generator.Controllers
             {
                 return View("AddMaterials");
             }
+            try
+            {
+                await _mediator.Send(material);
+                TempData["Materials"] = material.Name;
+                return RedirectToAction("AddMaterials");
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            try
+            {
+                var listMaterial = await _mediator.Send(new MaterialListQuerrie());
+                return View(listMaterial);
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMaterials(int id)
+        {
+            try
+            {
+                var result = await _mediator.Send(new MaterialRemove(id));
+                //_dataBaseService.DeleteMaterial(id);
+                ViewBag.Message = "Record Delete Succesfully";
+                return RedirectToAction("List");
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+     
+        public async Task<IActionResult> Edit(int id)
+        {
+            var dtoMaterial = await _mediator.Send(new GetMaterialQuerry(id));
+            EditMaterialCommand model = _mapper.Map<EditMaterialCommand>(dtoMaterial);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id,EditMaterialCommand material)
+        {
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("AddMaterials");
+            //}
 
             await _mediator.Send(material);
             TempData["Materials"] = material.Name;
-            return RedirectToAction("AddMaterials");
+            return RedirectToAction("List");
         }
 
-        //[HttpGet]
-        //public IActionResult List()
-        //{
-        //    var listMaterial = _dataBaseService.GetAllMaterials();
-        //    return View(listMaterial);
-        //}
+        public async Task<IActionResult> SearchMaterials(string searchMaterial)
+        {
+            try 
+            {
+                var material = await _mediator.Send(new MaterialSearchQuerrie(searchMaterial));
+                return View(material); 
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteMaterials(int id)
-        //{
-        //    _dataBaseService.DeleteMaterial(id);
-        //    ViewBag.Message = "Record Delete Succesfully";
-        //    return RedirectToAction("List");
-        //}
-
-        //public async Task<IActionResult> SearchMaterials(string searchMaterial)
-        //{
-        //    if (_dataBaseService.Search == null)
-        //    {
-        //        return Problem("Material isn't at the database");
-        //    }
-        //    var material = await _dataBaseService.Search(searchMaterial);
-        //    return View(material);
-        //}
+        }
 
     }
 }

@@ -4,11 +4,12 @@
     ViewData["Title"] = "DetailsCustomer";
 }
 
-<h1>Szczegoły klienta</h1>
+<h3>Szczegoły klienta</h3>
 
 
  <table class="table">
-              <thead>
+
+           <thead>
                 <tr>
                   <th scope="col">Street</th>
                   <th scope="col">NumberOfStreet</th>
@@ -24,19 +25,17 @@
                   <td>@Model.PostCode</td>
                   <td>@Model.City</td>
 
-                  @*<td>*@
-@*                @using (Html.BeginForm("DeleteMaterials", "Home", FormMethod.Post))
-                {
-                                <input type="hidden" name="id" value="@material.Id"/>
-                                <button class="btn btn-danger" type="submit">Usuń</button>
-                }*@
-                  @*</td>*@
+                    @using (Html.BeginForm("Edit", "Customer", FormMethod.Post))
+                    {
+                       <input type="hidden" name="Id" value="@Model.Id" />
+                       <button class="btn btn-danger" type="submit">Edytuj</button>
+                    }
 
                   </tr> 
 
-              </tbody>
-
-            </table>
+              </tbody>    
+  
+ </table> 
 <a href=@Url.ActionLink("CustomerList", "Customer")>Wróć</a>
 
 

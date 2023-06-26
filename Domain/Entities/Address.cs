@@ -5,11 +5,14 @@ namespace Domain.Entities
 {
     public class Address
     {
-        [Key]
+     
         public int AddressId { get; set; }
-        public string Street { get; set; }
+        public string Street { get; set; } = default!;
         public string NumberOf { get; set; } = null!;
-        public string PostCode { get; set; }
-        public string City { get; set; }
+        public string PostCode { get; set; } = default!;
+        public string City { get; set; } = default!;
+        public int CurrentCustomerId { get; set; }
+        public Customer CurrentCustomer { get; set; }
+
     }
 }

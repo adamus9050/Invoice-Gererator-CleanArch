@@ -1,5 +1,5 @@
-﻿@using Domain.Entities;
-@model IEnumerable<Domain.Entities.Material>
+﻿@using Application.Dto;
+@model IEnumerable<MaterialDto>
 @{
     ViewData["Title"] = "List";
 }
@@ -38,6 +38,15 @@
                         {
                             <input type="hidden" name="id" value="@material.Id"/>
                             <button class="btn btn-danger" type="submit">Usuń</button>
+                        }
+
+
+                  </td>
+                  <td>
+                        @using (Html.BeginForm("Edit", "Home", FormMethod.Get))
+                        {
+                             <input type="hidden" name="Id" value="@material.Id" />
+                             <button class="btn btn-danger" type="submit">Edytuj</button>
                         }
                   </td>
                   </tr> 

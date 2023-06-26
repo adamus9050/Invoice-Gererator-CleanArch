@@ -1,6 +1,8 @@
 ﻿using Application.Dto;
 using Domain.Entities;
 using AutoMapper;
+using Application.Dto.Customer.Command.Edit;
+using Application.Dto.Material.MaterialCommand.Edit;
 
 namespace Application.Mapping
 {
@@ -8,12 +10,15 @@ namespace Application.Mapping
     {
         public MaterialMappingProfile()
         {
+            CreateMap<MaterialDto, Material>()
+                .ForMember(dto => dto.MaterialId, opt => opt.MapFrom(src => src.Id));
+
             CreateMap<Material, MaterialDto>()
-                .ForMember(dto => dto.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dto => dto.Price, opt => opt.MapFrom(src => src.Price))
-                .ForMember(dto => dto.Description, opt => opt.MapFrom(src => src.Description));
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(src => src.MaterialId));
+
+            CreateMap<MaterialDto, EditMaterialCommand>();
 
         }
     }
 }
+

@@ -1,0 +1,47 @@
+﻿@model Application.Dto.ProductDto
+@{
+    ViewData["Title"] = "AddProduct";
+}
+
+<h3>Add Product</h3>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap" rel="stylesheet">
+
+@*<div class="g-3">
+    @using (Html.BeginForm("SearchMaterials", "Home", FormMethod.Post))
+    {
+                        <input type="text" name="SearchString" />
+                        <input class="btn btn-outline-primary" type="submit" value="Fitruj" /> 
+
+                            <h6>Wyszukaj</h6> 
+    }
+    <br/>*@
+    @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post))
+    {
+        @*@Html.ValidationSummary()*@
+
+                              <div class="col">
+                                            <input type="text" class="form-control" placeholder="Nazwa produktu" @Html.TextBoxFor(x =>x.ProductName)>
+                                            <span asp-validation-for="ProductName" class="text-danger"></span>
+                              </div>
+                              <div class="col">
+                                            <input type="text" class="form-control" placeholder="Typ" @Html.TextBoxFor(x => x.Type)>
+                                                 <span asp-validation-for="Type" class="text-danger"></span>
+                              </div>
+                              <div class="col">
+                                            <input type="text" class="form-control" placeholder="Cena" @Html.TextBoxFor(x => x.ProductPrice)>
+                                            <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                              </div>
+                <br/>
+                    <button class="btn btn-primary" type="submit">Wyślij formularz</button>
+    }
+        <p>Zapisane:</p>
+        <p> Nazwa materiału:</p><strong>@TempData["Product1"]</strong> 
+        <p> Cena materiału:</p><strong>@TempData["Product2"]</strong> 
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

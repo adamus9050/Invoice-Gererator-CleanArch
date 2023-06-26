@@ -13,10 +13,13 @@ namespace Domain.Entities
     public class Material
     {
         [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int MaterialId { get; set; }
+        public string Name { get; set; } = default!;
+        public string Description { get; set; } = default!;
         [Column(TypeName = "decimal(6,2)")]
         public double Price { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
+
     }
 }

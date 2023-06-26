@@ -1,5 +1,4 @@
-﻿using Application.Services;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,23 +26,28 @@ namespace Infrastructure.Repositories
             {
                 Console.WriteLine("Udało się dodać material");
             }
-            var idmaterial = $"l.p{material.Id} Nazwa: {material.Name} Cena: {material.Price}";
-            // return idmaterial;
+            var idmaterial = $"l.p{material.MaterialId} Nazwa: {material.Name} Cena: {material.Price}";
         }
 
-        public async Task DeleteMaterial(int id)
+        public async Task<Material> DeleteMaterial(int id)
         {
 
             //var idMat = _context.Materials.Where(x => x.Id == id).FirstOrDefault();
-            Material idMat = _dbCustContext.Materials.Find(id);
+            var idMat =await _dbCustContext.Materials.FindAsync(id);
             _dbCustContext.Materials.Remove(idMat);
             _dbCustContext.SaveChanges();
-            //return idMat;
+            return idMat;
         }
-
-        public IEnumerable<Material> GetAllMaterials()
+        public async Task Commit()
+        => _dbCustContext.SaveChangesAsync();
+        public async Task<Material> GetMaterialById(int id)
         {
-            var materials = _dbCustContext.Materials.ToList();
+            var material = await _dbCustContext.Materials.FindAsync(id);
+            return material;
+        }
+        public async Task<IEnumerable<Material>> GetAllMaterials()
+        {
+            var materials = await _dbCustContext.Materials.ToListAsync();
             return materials;
         }
 
@@ -54,8 +58,8 @@ namespace Infrastructure.Repositories
 
             material = material.Where(x => x.Name!.Contains(searchString) || x.Price!.ToString().Contains(searchString));
 
-            var zmienna1 = await material.ToListAsync();
-            return zmienna1;
+            var result = await material.ToListAsync();
+            return result;
         }
 
 

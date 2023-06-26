@@ -9,11 +9,13 @@ namespace Domain.Interfaces
 {
     public interface ICustomerRepository
     {
-        Task Save(Customer customer);
+        Task Save(Address customer);
         Task<Customer> DeleteCustomers(int id);
         Task<IEnumerable<Customer>> GetAll();
-        Task <Address> GetAddress(int id); //Task<Customer>
-
+        Task<Customer> GetCustomer(int id);
+        Task <Address> GetAddress(int id);//Address
+        //Task<Address> Edit(int id);
+        Task Commit();
         Task<List<Customer>> Search(string searchString);
         //Task<List<Material>> SearchMaterial(string searchString);
     }

@@ -1,12 +1,15 @@
-﻿@model IEnumerable<Domain.Entities.Material>
+﻿@using Application.Dto
+@model IEnumerable<MaterialDto>
+
 @{
     ViewData["Title"] = "SearchMaterial";
 }
 
 <h1>Wyszukiwarka</h1>
+
 @using (Html.BeginForm("SearchMaterial", "Home", FormMethod.Post))
 {
-           <input type="text" name="searchMaterial" />
+           <input type="text" name="SearchMaterial" />
        <input type="submit" value="Filter" /> 
 }
 
@@ -21,3 +24,6 @@
 
     }
 </ul>
+<div>
+    <a asp-action="List">Wróć</a>
+</div>

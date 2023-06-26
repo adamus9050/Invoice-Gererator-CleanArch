@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,8 @@ namespace Application.Dto.Customer.CustomerQueries.Details
         {
             var details = await _customerRepository.GetAddress(request.Id);
             var dtoDetails = _mapper.Map<CustomerDto>(details);
+            
+
             return dtoDetails;
         }
     }

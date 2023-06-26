@@ -5,6 +5,16 @@ using Application.Dto.Customer.CustomerQueries.Details;
 //using Application.Dto.Customer.Command.CustomerCommandDelete;
 using Application.Dto.Customer.Command.CustomerCommandAdd;
 using CustomerCommandDelete;
+using Application.Dto.Customer.CustomerQueries.Search;
+using CustomerQueries.Search;
+using Application.Dto.Customer.Command.Edit;
+using AutoMapper;
+using Application.Dto;
+using Application.Dto.Customer.CustomerQueries.GetCustomer;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Azure.Core;
+using Domain.Interfaces;
 
 namespace Invoice_Generator.Controllers
 {
@@ -12,8 +22,10 @@ namespace Invoice_Generator.Controllers
     {
         //private readonly IDataCustomerService _customerService;
         private readonly IMediator _mediator;
-        public CustomerController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public CustomerController(IMediator mediator, IMapper mapper)
         {
+            _mapper= mapper;
             _mediator = mediator;
         }
 
@@ -25,16 +37,24 @@ namespace Invoice_Generator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CustomerSaveCommand createCustomer)//CustomerDto customer)
+        public async Task<IActionResult> Add(CustomerSaveCommand createCustomer)
         {
             if (!ModelState.IsValid)
             {
                 return View("Add");
             }
-            await _mediator.Send(createCustomer);
-            TempData["CustomerName"] = createCustomer.Name;
-            TempData["CustomerSurname"] = createCustomer.Surname;
-            return RedirectToAction("Add");
+                try
+                {
+                    await _mediator.Send(createCustomer);
+                    TempData["CustomerName"] = createCustomer.Name;
+                    TempData["CustomerSurname"] = createCustomer.Surname;
+                    return RedirectToAction("Add");
+                }
+                catch (Exception ex) 
+                {
+                    return Problem(ex.Message);
+                }
+
         }
 
         [HttpPost]
@@ -43,10 +63,12 @@ namespace Invoice_Generator.Controllers
             try
             {
                 var result = await _mediator.Send(new CustomerDeleteCommand(id));
+                ViewBag.Message = "Record Delete Succesfully";
                 return RedirectToAction("CustomerList");
             }
             catch(Exception ex) 
             {
+                
                 return Problem(ex.Message);
             }
             
@@ -56,32 +78,73 @@ namespace Invoice_Generator.Controllers
         [Route("CustomerList")]
         public async Task<IActionResult> CustomerList()//CustomerDto customer)
         {
-            var lst = await _mediator.Send(new GetAllCustomer());
-            return View(lst);
+            try
+            {
+                var lst = await _mediator.Send(new GetAllCustomer());
+                return View(lst);
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
 
         [HttpGet]
+        
         public async Task<IActionResult> DetailsCustomer(int id)
         {
-            var detail = await _mediator.Send(new DetailssCustomer(id+1));
+            var detail = await _mediator.Send(new DetailssCustomer(id));
             return View(detail);
         }
 
+       
+        [Route("Edit")]
+        public async Task<IActionResult> Edit(int id) 
+        {
+            var dtoAddress = await _mediator.Send(new GetCustomerQuerrie(id));
 
-        //public async Task<IActionResult> Search(string searchString)
-        //{
-        //    if (searchString == null)
-        //    {
-        //        return Problem("Pole szukaj jest puste");
-        //    }
-        //    else if (_customerService.Search == null)
-        //    {
-        //        return Problem("Customer isn't at the database");
-        //    }
-        //    var customer = await _customerService.Search(searchString);
+            EditCustomerCommand model = _mapper.Map<EditCustomerCommand>(dtoAddress);
 
-        //    return View(customer);
-        //}
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("Edit")]
+        public async Task<IActionResult> Edit(int id,EditCustomerCommand editcustomer)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("Add");
+            //}
+            try
+            {
+                await _mediator.Send(editcustomer);
+                TempData["CustomerName"] = editcustomer.Name;
+                TempData["CustomerSurname"] = editcustomer.Surname;
+                return RedirectToAction("CustomerList");
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+
+        }
+        public async Task<IActionResult> Search(string searchString)
+        {
+            //if (searchString == null)
+            //{
+            //    return View(CustomerList());
+            //}
+            if (searchString == null)
+            {
+                var customerList = await _mediator.Send(new GetAllCustomer());
+
+                return View(customerList);
+            }
+            var customerSearch = await _mediator.Send(new CustomerSearchQuerry(searchString));
+
+            return View(customerSearch);
+        }
     }
 }
 

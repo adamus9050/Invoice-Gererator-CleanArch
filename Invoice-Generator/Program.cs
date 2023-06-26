@@ -4,10 +4,8 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using Domain.Entities.Identification;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
-using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Extensions;
 using Application.Extensions;
@@ -17,22 +15,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddInApplication();
+builder.Services.AddInApplication(); // odpowiedzialny za dodanie mediatora do projektu
 
 
-void ConfigureServices(IServiceCollection services)
-{
-    services.AddIdentityCore<UserModel>(options =>
-    {
-        options.Password.RequireDigit = false;
-        options.Password.RequiredLength = 5;
-        options.Password.RequireUppercase = false;
-        options.Password.RequireLowercase = false;
-        options.Password.RequireNonAlphanumeric = false;
+//void ConfigureServices(IServiceCollection services)
+//{
 
-    }).AddEntityFrameworkStores<DbCustContext>();
 
-}
+//}
 
 var app = builder.Build();
 
@@ -49,10 +39,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+app.MapRazorPages();
 app.Run();
