@@ -1,15 +1,11 @@
-﻿using Application.Dto;
-using Application.Dto.Product.ProductCommand.Add;
-using Application.Dto.Product.ProductQuerries;
-using Domain.Entities;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using Application.Dto.Material.MaterialCommand.Edit;
-using Application.Dto.Material.MaterialQuerries.Get;
+﻿using Application.Dto.Product.ProductCommand.Add;
 using Application.Dto.Product.ProductCommand.Edit;
 using Application.Dto.Product.ProductQuerries.Get;
 using Application.Dto.Product.ProductQuerries.List;
+using Microsoft.AspNetCore.Authorization;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace Invoice_Generator.Controllers
 {
@@ -34,6 +30,7 @@ namespace Invoice_Generator.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public  IActionResult AddProduct()
         {
             return View();
@@ -67,6 +64,7 @@ namespace Invoice_Generator.Controllers
 
         }
 
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var dtoProduct = await _mediator.Send(new GetProductQuerry(id));

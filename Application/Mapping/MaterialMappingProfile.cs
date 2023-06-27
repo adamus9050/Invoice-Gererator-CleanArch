@@ -1,7 +1,6 @@
 ﻿using Application.Dto;
 using Domain.Entities;
 using AutoMapper;
-using Application.Dto.Customer.Command.Edit;
 using Application.Dto.Material.MaterialCommand.Edit;
 
 namespace Application.Mapping

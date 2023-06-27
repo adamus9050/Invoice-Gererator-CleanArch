@@ -1,5 +1,4 @@
-﻿using Domain.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Domain.Entities;
@@ -8,6 +7,7 @@ using MediatR;
 using Application.Dto.Customer.Command.CustomerCommandAdd;
 using Application.Dto.Material.MaterialCommand.Add;
 using Application.Dto.Product.ProductCommand.Add;
+using Application.ApplicationUser;
 
 namespace Application.Extensions
 {
@@ -15,6 +15,8 @@ namespace Application.Extensions
     {
         public static void AddInApplication(this IServiceCollection services)
         {
+            services.AddScoped<IUserContext, UserContext>();
+            
             services.AddMediatR(cfg => {
                 cfg.RegisterServicesFromAssemblyContaining(typeof(CustomerSaveCommand));
                 

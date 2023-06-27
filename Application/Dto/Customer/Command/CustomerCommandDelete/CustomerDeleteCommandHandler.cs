@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CustomerCommandDelete;
-using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 

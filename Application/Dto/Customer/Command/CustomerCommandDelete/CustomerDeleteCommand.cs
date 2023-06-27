@@ -1,7 +1,5 @@
 ﻿using Domain.Entities;
 using MediatR;
-using System;
-using Application.Dto.Customer.Command;
 
 namespace CustomerCommandDelete
 {

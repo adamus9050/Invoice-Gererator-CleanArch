@@ -19,9 +19,9 @@ namespace Application.Mapping
                     EmailAdress = src.EmailAdres,
 
                 }));
-            
 
-            CreateMap<Address, CustomerDto>()       
+
+            CreateMap<Address, CustomerDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(src => src.CurrentCustomer.CustomerId))
                 .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.CurrentCustomer.Name))
                 .ForMember(dto => dto.Surname, opt => opt.MapFrom(src => src.CurrentCustomer.Surname))

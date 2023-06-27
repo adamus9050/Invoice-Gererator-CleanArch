@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
@@ -13,6 +14,10 @@ namespace Domain.Entities
         public string City { get; set; } = default!;
         public int CurrentCustomerId { get; set; }
         public Customer CurrentCustomer { get; set; }
+
+
+        public string? CreatedById { get; set; }
+        public IdentityUser? CreatedBy { get; set; }
 
     }
 }

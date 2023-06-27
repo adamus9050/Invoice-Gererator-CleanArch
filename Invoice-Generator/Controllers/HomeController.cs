@@ -6,9 +6,7 @@ using MaterialCommand.Delete;
 using MaterialQuerries.Search;
 using Application.Dto.Material.MaterialQuerries.Get;
 using Application.Dto.Material.MaterialCommand.Edit;
-using Application.Dto.Customer.Command.Edit;
 using AutoMapper;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace Invoice_Generator.Controllers
 {

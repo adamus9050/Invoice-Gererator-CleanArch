@@ -1,10 +1,4 @@
-﻿using Application.Dto.Customer.CustomerQueries.GetCustomer;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Application.Dto.Material.MaterialQuerries.Get
 {

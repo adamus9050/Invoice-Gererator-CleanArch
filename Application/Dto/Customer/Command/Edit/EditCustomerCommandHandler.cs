@@ -1,19 +1,18 @@
-﻿using Domain.Interfaces;
+﻿using Application.ApplicationUser;
+using Domain.Interfaces;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Application.Dto.Customer.Command.Edit
 {
     public class EditCustomerCommandHandler : IRequestHandler<EditCustomerCommand,Unit>
     {
         private readonly ICustomerRepository _customerRepository;
-        public EditCustomerCommandHandler(ICustomerRepository repository)
+        //private readonly IUserContext _userContext;
+        public EditCustomerCommandHandler(ICustomerRepository repository, IUserContext userContext)
         {
             _customerRepository = repository;
+            //_userContext = userContext;
         }
         public async Task<Unit> Handle(EditCustomerCommand request, CancellationToken cancellationToken)
         {
@@ -28,6 +27,8 @@ namespace Application.Dto.Customer.Command.Edit
             editCustomer.PostCode = request.PostCode;
             editCustomer.NumberOf = request.NumberOf;
             editCustomer.City = request.City;
+
+            //customer.CreatedById = _userContext.GetCurrentUser().Id;
 
             await _customerRepository.Commit();
             return Unit.Value;

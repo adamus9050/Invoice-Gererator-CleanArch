@@ -13,7 +13,8 @@ namespace Domain.Entities
     public class Material
     {
         [Key]
-        public int MaterialId { get; set; }
+        public int MaterialId { get; set; } = default!;
+
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
         [Column(TypeName = "decimal(6,2)")]

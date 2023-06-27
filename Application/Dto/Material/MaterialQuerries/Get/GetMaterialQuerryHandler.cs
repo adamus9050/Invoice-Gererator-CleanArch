@@ -1,12 +1,7 @@
-﻿using Application.Dto.Customer.CustomerQueries.GetCustomer;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain.Interfaces;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Application.Dto.Material.MaterialQuerries.Get
 {

@@ -2,19 +2,14 @@
 using MediatR;
 using Application.Dto.Customer.CustomerQueries.List;
 using Application.Dto.Customer.CustomerQueries.Details;
-//using Application.Dto.Customer.Command.CustomerCommandDelete;
 using Application.Dto.Customer.Command.CustomerCommandAdd;
 using CustomerCommandDelete;
-using Application.Dto.Customer.CustomerQueries.Search;
 using CustomerQueries.Search;
 using Application.Dto.Customer.Command.Edit;
 using AutoMapper;
-using Application.Dto;
 using Application.Dto.Customer.CustomerQueries.GetCustomer;
-using Domain.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Azure.Core;
-using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Invoice_Generator.Extensions;
 
 namespace Invoice_Generator.Controllers
 {
@@ -25,14 +20,17 @@ namespace Invoice_Generator.Controllers
         private readonly IMapper _mapper;
         public CustomerController(IMediator mediator, IMapper mapper)
         {
-            _mapper= mapper;
+            _mapper = mapper;
             _mediator = mediator;
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-
+            if (User.Identity == null || !User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
             return View();
         }
 
@@ -43,21 +41,23 @@ namespace Invoice_Generator.Controllers
             {
                 return View("Add");
             }
-                try
-                {
-                    await _mediator.Send(createCustomer);
-                    TempData["CustomerName"] = createCustomer.Name;
-                    TempData["CustomerSurname"] = createCustomer.Surname;
-                    return RedirectToAction("Add");
-                }
-                catch (Exception ex) 
-                {
-                    return Problem(ex.Message);
-                }
+            try
+            {
+                await _mediator.Send(createCustomer);
+                //var notification = new Notification("Success", $"Created Customer: {createCustomer.Name}, {createCustomer.Surname}");
+                //TempData["Notification"]=JsonConvert.SerializeObject(notification);
+                this.SetNotification("success", $"Created customer: {createCustomer.Name} {createCustomer.Surname}");
+                return RedirectToAction("CustomerList");
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
 
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> DeleteCustomers(int id)
         {
             try
@@ -66,12 +66,12 @@ namespace Invoice_Generator.Controllers
                 ViewBag.Message = "Record Delete Succesfully";
                 return RedirectToAction("CustomerList");
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
-                
+
                 return Problem(ex.Message);
             }
-            
+
         }
 
         [HttpGet]
@@ -83,14 +83,14 @@ namespace Invoice_Generator.Controllers
                 var lst = await _mediator.Send(new GetAllCustomer());
                 return View(lst);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
         }
 
         [HttpGet]
-        
+        [Authorize]
         public async Task<IActionResult> DetailsCustomer(int id)
         {
             var detail = await _mediator.Send(new DetailssCustomer(id));
@@ -99,6 +99,7 @@ namespace Invoice_Generator.Controllers
 
        
         [Route("Edit")]
+        [Authorize]
         public async Task<IActionResult> Edit(int id) 
         {
             var dtoAddress = await _mediator.Send(new GetCustomerQuerrie(id));

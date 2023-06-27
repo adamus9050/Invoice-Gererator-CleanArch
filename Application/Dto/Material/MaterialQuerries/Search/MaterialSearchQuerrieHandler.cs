@@ -2,7 +2,6 @@
 using AutoMapper;
 using MediatR;
 using MaterialQuerries.Search;
-using Domain.Entities;
 
 namespace Application.Dto.Material.MaterialQuerries.Search
 {

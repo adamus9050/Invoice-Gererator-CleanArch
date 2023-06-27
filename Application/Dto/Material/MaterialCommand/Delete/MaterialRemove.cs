@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Domain.Entities;
-using Application.Dto.Material;
 
 namespace MaterialCommand.Delete
 {
