@@ -1,0 +1,28 @@
+﻿@using Application.Dto
+@model IEnumerable<ProductDto>
+@{
+    ViewData["Title"] = "SearchProducts";
+}
+
+<h1>Wyszukiwarka</h1>
+
+@using (Html.BeginForm("SearchProducts", "Product", FormMethod.Post))
+{
+           <input type="text" name="SearchProduct" />
+           <input type="submit" value="Filter" /> 
+}
+
+<ul>     
+    @foreach (var product in Model)
+    {
+          <li>
+            @product.ProductName
+            @product.Type
+            @product.ProductPrice
+          </li>
+
+    }
+</ul>
+<div>
+    <a asp-action="List">Wróć</a>
+</div>

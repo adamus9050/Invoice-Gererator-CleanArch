@@ -29,27 +29,30 @@ namespace Infrastructure.Repositories
             public async Task Commit()
             => _context.SaveChangesAsync();
 
-        public async Task<Material> GetMaterialById(int id)
-        {
-            var material = await _context.Materials.FindAsync(id);
-            return material;
-        }
-
-        public async Task<List<Product>> SearchProduct(string searchString)
-        {
-            var product = from m in _context.Products
-                           select m;
-
-            product = product.Where(x => x.ProductName!.Contains(searchString) || x.ProductPrice!.ToString().Contains(searchString) || x.Type!.ToString().Contains(searchString));
-
-            var result = await product.ToListAsync();
-            return result;
-        }
-
         public async Task<Product> GetProductById(int id)
         {
             var product = await _context.Products.FindAsync(id);
             return product;
         }
+        public async Task<Product> DeleteProduct(int id)
+        {
+            var idproduct = await _context.Products.FindAsync(id);
+            _context.Products.Remove(idproduct);
+            _context.SaveChanges();
+            return idproduct;
+
+        }
+        public async Task<List<Product>> SearchProduct(string searchString)
+        {
+            var product = from m in _context.Products
+                           select m;
+
+            product = product.Where(x => x.ProductName!.Contains(searchString) || x.Type!.ToString().Contains(searchString) || x.ProductPrice!.ToString().Contains(searchString)) ;
+
+            var result = await product.ToListAsync();
+            return result;
+        }
+
+
     }
 }

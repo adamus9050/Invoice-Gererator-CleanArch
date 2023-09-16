@@ -7,5 +7,8 @@ namespace Application.Dto
         public string ProductName { get; set; }
         public string Type { get; set; }
         public int ProductPrice { get; set; }
+
+        public bool IsEditable { get; set; }
+
     }
 }

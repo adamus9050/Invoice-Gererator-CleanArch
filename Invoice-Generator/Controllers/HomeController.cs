@@ -7,6 +7,7 @@ using MaterialQuerries.Search;
 using Application.Dto.Material.MaterialQuerries.Get;
 using Application.Dto.Material.MaterialCommand.Edit;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Invoice_Generator.Controllers
 {
@@ -75,6 +76,7 @@ namespace Invoice_Generator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteMaterials(int id)
         {
             try

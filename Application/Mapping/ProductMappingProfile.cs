@@ -1,4 +1,6 @@
 ﻿using Application.Dto;
+using Application.Dto.Material.MaterialCommand.Edit;
+using Application.Dto.Product.ProductCommand.Edit;
 using AutoMapper;
 using Domain.Entities;
 
@@ -14,6 +16,9 @@ namespace Application.Mapping
 
             CreateMap<ProductDto,Product >()
                                 .ForMember(dto => dto.ProductId, opt => opt.MapFrom(src => src.ProductId));
+
+            CreateMap<ProductDto, EditProductCommand>();
+
 
         }
     }

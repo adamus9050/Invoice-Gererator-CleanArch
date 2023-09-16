@@ -1,0 +1,27 @@
+﻿@model Application.Dto.OrderDto
+@{
+    ViewData["Title"] = "AddOrder";
+}
+
+@using (Html.BeginForm("AddOrder", "Order", FormMethod.Post))
+{
+     <div class="col">
+     <input type="text" class="form-control" placeholder="CustomerId" @Html.TextBoxFor(x => x.CustomerId)>
+     <span asp-validation-for="CustomerId" class="text-danger"></span>
+     </div>
+
+     //Add Materials
+     <div class="col">
+                       <input type="text" class="form-control" placeholder="MaterialId" @Html.TextBoxFor(x =>x.MaterialId)>
+                       <span asp-validation-for="MaterialId" class="text-danger"></span>
+     </div>
+     //Products
+     <div class="col">
+          <input type="text" class="form-control" placeholder="productId" @Html.TextBoxFor(x =>x.ProductId)>
+          <span asp-validation-for="ProductId" class="text-danger"></span>
+     </div>
+
+
+     <button btn-primary" type="submit">Wyślij formularz</button>
+
+}

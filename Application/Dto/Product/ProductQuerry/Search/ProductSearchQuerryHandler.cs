@@ -23,8 +23,8 @@ namespace Application.Dto.Product.ProductQuerries.Search
 
         public async Task<IEnumerable<ProductDto>> Handle(ProductSearchQuerry request, CancellationToken cancellationToken)
         {
-            var materialSearch = await _productRepository.SearchProduct(request.searchStringHandler);
-            var list = _mapper.Map<IEnumerable<ProductDto>>(materialSearch);
+            var productSearch = await _productRepository.SearchProduct(request.searchStringHandler);
+            var list = _mapper.Map<IEnumerable<ProductDto>>(productSearch);
             return list;
 
         }

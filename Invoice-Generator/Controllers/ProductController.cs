@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using MaterialCommand.Delete;
+using ProductCommand.Delete;
+using MaterialQuerries.Search;
+using Application.Dto.Product.ProductQuerries.Search;
 
 namespace Invoice_Generator.Controllers
 {
@@ -48,13 +52,30 @@ namespace Invoice_Generator.Controllers
             TempData["Product2"] = products.ProductPrice;
             return RedirectToAction("AddProduct");
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllProducts() 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> RemoveProduct(int id)
         {
             try
             {
-                var ProductList= await _mediator.Send(new ListProduct());
+                var result = await _mediator.Send(new DeleteProductCommand(id));
+                //_dataBaseService.DeleteMaterial(id);
+                ViewBag.Message = "Record Delete Succesfully";
+                return RedirectToAction("GetAllProducts");
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductList() 
+        {
+            try
+            {
+                var ProductList= await _mediator.Send(new ListProductQuerrie());
                 return View(ProductList);
             }
             catch (Exception ex)
@@ -85,6 +106,20 @@ namespace Invoice_Generator.Controllers
             await _mediator.Send(product);
             TempData["Product"] = product.ProductName;
             return RedirectToAction("List");
+        }
+
+        public async Task<IActionResult> SearchProducts(string searchProduct)
+        {
+            try
+            {
+                var product = await _mediator.Send(new ProductSearchQuerry(searchProduct));
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+
         }
     }
 }

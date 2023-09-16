@@ -13,5 +13,7 @@ namespace Application.Dto
         public string? PostCode { get; set; }
         public string? City { get; set; }
 
+        public bool IsEditable { get; set; }
+
     }
 }

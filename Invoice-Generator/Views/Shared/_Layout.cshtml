@@ -14,48 +14,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Invoice_Generator</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />  
     <link rel="stylesheet" href="~/Invoice_Generator.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~\lib\toastr.js\toastr.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Invoice_Generator</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Add">Dodaj klientów</a>
-                        </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddMaterials">Dodaj materiały</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="List">Lista Materiałów</a>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="CustomerList">Lista Klientów</a>
-                        </li>                       
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDropdownCustomer">
+                                Klient
+                            </a>
+                            <ul class="dropdown-menu" aria-label="navbarDropdownCustomer">
+                                <li>
+                                     <a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="Add">Dodaj klientów</a>
+                                </li>
+                                <li>
+                                     <a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="CustomerList">Lista Klientów</a>
+                                </li>
+                            </ul>
+
+                        </li>  
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDropdownCustomer">
+                                Materiał
+                            </a>
+                            <ul class="dropdown-menu" aria-label="navbarDropdownCustomer">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="AddMaterials">Dodaj materiały</a>
+
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="List">Lista Materiałów</a>
+
+                                </li>
+                            </ul>
+                        </li>
                     
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="AddProduct">Dodanie Produktów</a>
-                        </li>           
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="GetAllProducts">Lista Produktów</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="navbarDropdownCustomer">
+                                Produkt
+                            </a>
+                            <ul class="dropdown-menu" aria-label="navbarDropdownCustomer">
+                                <li>
+                                 <a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="AddProduct">Dodanie Produktów</a>
+
+                                </li>
+                                <li>
+                                 <a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="ProductList">Lista Produktów</a>
+
+                                </li>
+                            </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="dropdown-item" asp-area="" asp-controller="Order" asp-action="AddOrder">Zamów</a>
+                        </li>
                     </ul>
                    <partial name="_LoginPartial"/>
                 </div>
@@ -68,7 +99,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted mt-4 pt-3">
         <div class="container">
             &copy; 2023 - Invoice_Generator - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

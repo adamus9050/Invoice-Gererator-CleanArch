@@ -1,0 +1,50 @@
+﻿@using Application.Dto;
+@model IEnumerable<OrderDto>
+@{
+    ViewData["Title"] = "GetOrderList";
+}
+
+<div class="page-1">
+    @foreach (var order in Model)
+    {
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">CustomerId</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Surname</th>
+                      <th scope="col">PhoneNumber</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">MaterialId</th>
+                      <th scope="col">MaterialName</th>
+                      <th scope="col">MaterialDescription</th>
+                      <th scope="col">MaterialPrice</th>
+                      <th scope="col">ProductId</th>
+                      <th scope="col">ProductName</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">ProductPrice</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <th scope="row">@order.CustomerId</th>
+                      <td>@order.CustomerName</td>
+                      <td>@order.Surname</td>
+                      <td>@order.PhoneNumber</td>
+                      <td>@order.MaterialId</td>
+                      <td>@order.MaterialName</td>
+                      <td>@order.MaterialDescription</td>
+                      <td>@order.MaterialPrice</td>
+                      <td>@order.ProductId</td>
+                      <td>@order.ProductName</td>
+                      <td>@order.Type</td>
+                      <td>@order.ProductPrice</td>
+
+                  </tbody>
+
+                </table>
+
+    }
+
+</div>

@@ -17,11 +17,14 @@ namespace Infrastructure.Extensions
             options.UseSqlServer(configuration.GetConnectionString("TwojaFaktura")));
 
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DbCustContext>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IHomeRepository, HomeRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
         }
     }
 }

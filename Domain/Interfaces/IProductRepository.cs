@@ -11,6 +11,7 @@ namespace Domain.Interfaces
     {
         Task <IEnumerable<Product>> ProducList();
         Task AddProduct(Product product);
+        Task<Product> DeleteProduct(int id);
         Task<List<Product>> SearchProduct(string searchString);
         Task<Product> GetProductById(int id);
         Task Commit();

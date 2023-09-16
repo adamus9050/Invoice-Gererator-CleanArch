@@ -31,6 +31,10 @@ namespace Invoice_Generator.Controllers
             {
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
+            if(!User.IsInRole("Owner"))
+            {
+                return RedirectToAction("NoAccess");
+            }
             return View();
         }
 

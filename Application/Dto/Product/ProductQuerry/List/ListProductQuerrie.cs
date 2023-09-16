@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Dto.Product.ProductQuerries.List
 {
-    public class ListProduct : IRequest<IEnumerable<ProductDto>>
+    public class ListProductQuerrie : IRequest<IEnumerable<ProductDto>>
     {
 
     }
